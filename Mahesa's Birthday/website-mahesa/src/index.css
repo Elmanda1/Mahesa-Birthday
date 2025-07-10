@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Sembunyikan scrollbar untuk Chrome, Safari, dan Opera */
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sembunyikan scrollbar untuk IE, Edge, dan Firefox */
+body, #root {
+  -ms-overflow-style: none;  /* IE dan Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+body {
+  background-color: #FFFBFB; /* Ganti dengan warna background baru */
+  font-family: 'Poppins', sans-serif;
+  color: #4B4242; /* Ganti dengan warna teks baru */
+}

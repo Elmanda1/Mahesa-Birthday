@@ -1,35 +1,28 @@
+// src/pages/HomePage.jsx
 import React from 'react';
 
-// Komponen ini akan menerima sebuah 'prop' bernama 'onStartQuiz'.
-// Ini adalah fungsi yang akan kita kirim dari App.jsx untuk memulai kuis.
 function HomePage({ onStartQuiz }) {
   return (
-    <div className="bg-gradient-to-br from-rose-500 to-pink-600 min-h-screen flex flex-col items-center justify-center p-4 text-white text-center">
+    <div className="relative min-h-screen flex items-center justify-center p-4 text-center overflow-hidden bg-brand-background">
+      {/* Aurora Background Effect */}
+      <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-brand-primary/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-96 h-96 bg-brand-primary-light/20 rounded-full blur-3xl animate-pulse delay-75"></div>
       
-      {/* Container utama dengan efek glassmorphism */}
-      <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-2xl p-8 max-w-lg">
-
-        {/* Judul Utama */}
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-down">
-          Selamat Ulang Tahun, Mahesa!
+      <div className="z-10">
+        <h1 className="text-5xl md:text-7xl font-bold text-brand-text leading-tight">
+          Selamat Ulang Tahun, <span className="text-brand-primary">Mahesa</span>!
         </h1>
-
-        {/* Pesan Pembuka */}
-        <p className="text-lg md:text-xl mb-8 animate-fade-in-up">
-          Ada sesuatu yang spesial untukmu. Tapi sebelum itu, buktikan kalau kamu benar-benar kenal dirimu sendiri!
+        <p className="text-lg md:text-xl text-brand-text/70 mt-4 max-w-2xl mx-auto">
+          Sebuah website kecil disiapkan untuk merayakan harimu. Tapi sebelum itu, ada sedikit tantangan untukmu.
         </p>
-
-        {/* Tombol untuk Memulai Kuis */}
         <button
-          onClick={onStartQuiz} // Saat diklik, tombol ini akan menjalankan fungsi onStartQuiz
-          className="py-3 px-8 bg-white text-rose-500 font-bold rounded-full shadow-lg hover:scale-110 transform transition-all duration-300"
+          onClick={onStartQuiz}
+          className="mt-8 py-3 px-8 bg-brand-primary text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300"
         >
-          Mulai Petualangan!
+          Mulai Tantangan
         </button>
-        
       </div>
     </div>
   );
 }
-
 export default HomePage;

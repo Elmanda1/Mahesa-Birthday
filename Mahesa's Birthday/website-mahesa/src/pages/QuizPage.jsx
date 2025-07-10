@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { quizQuestions } from '../data/quizQuestions';
 
-// TAMBAHKAN prop 'onQuizComplete'
 function QuizPage({ onQuizComplete }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -15,9 +14,7 @@ function QuizPage({ onQuizComplete }) {
     setSelectedAnswer(selectedOption);
     const isCorrect = selectedOption === quizQuestions[currentQuestionIndex].correctAnswer;
     setAnswerStatus(isCorrect ? 'correct' : 'incorrect');
-    if (isCorrect) {
-      setScore(score + 1);
-    }
+    if (isCorrect) setScore(score + 1);
     setTimeout(() => {
       const nextQuestionIndex = currentQuestionIndex + 1;
       if (nextQuestionIndex < quizQuestions.length) {
@@ -27,50 +24,46 @@ function QuizPage({ onQuizComplete }) {
       } else {
         setShowScore(true);
       }
-    }, 1000);
+    }, 1200);
   };
 
-  // Fungsi restart tidak kita butuhkan lagi untuk alur utama,
-  // tapi bisa disimpan jika ingin ada fitur "coba lagi" di masa depan.
-
   const getButtonClassName = (option) => {
-    const baseClass = "w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300";
+    const baseClass = "w-full text-left p-4 rounded-lg border transition-all duration-300 font-medium";
     if (!answerStatus) {
-      return `${baseClass} bg-white/20 text-white hover:bg-cyan-400/50`;
+      return `${baseClass} border-brand-secondary text-brand-text hover:bg-brand-primary-light/20 hover:border-brand-primary`;
     }
     const isThisButtonTheSelectedOne = option === selectedAnswer;
     if (isThisButtonTheSelectedOne) {
-      return answerStatus === 'correct' ? `${baseClass} bg-green-500 text-white` : `${baseClass} bg-red-500 text-white`;
+      return answerStatus === 'correct' ? `${baseClass} bg-brand-correct border-brand-correct text-white` : `${baseClass} bg-brand-incorrect border-brand-incorrect text-white`;
     }
-    return `${baseClass} bg-white/10 text-white/50 cursor-not-allowed`;
+    return `${baseClass} border-brand-secondary/50 text-brand-text/50 cursor-not-allowed`;
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-slate-700 min-h-screen flex flex-col items-center justify-center p-4 text-white">
-      <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-2xl p-8 w-full max-w-md text-center">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-brand-background">
+      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl">
         {showScore ? (
-          <div>
-            <h2 className="text-3xl font-bold text-white mb-2">Kuis Selesai!</h2>
-            <p className="text-lg text-cyan-300 mb-6">
-              Skor Kamu: {score} dari {quizQuestions.length}
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-brand-text mb-2">Kuis Selesai!</h2>
+            <p className="text-lg text-brand-text/70 mb-6">
+              Skor Akhir: <span className="font-bold text-brand-primary">{score}</span> dari {quizQuestions.length}
             </p>
-            {/* TOMBOL BARU UNTUK MELANJUTKAN */}
             <button
-              onClick={onQuizComplete} // Saat diklik, panggil fungsi dari App.jsx
-              className="w-full py-3 px-4 bg-green-500 rounded-lg font-semibold text-white hover:bg-green-600 transition-all duration-200"
+              onClick={onQuizComplete}
+              className="w-full py-3 px-4 bg-brand-primary rounded-lg font-bold text-white hover:bg-brand-primary-light transition-all duration-200 shadow-lg hover:shadow-xl"
             >
-              Buka Kenangan ✨
+              Lanjutkan Petualangan ✨
             </button>
           </div>
         ) : (
           <>
-            <p className="text-sm font-semibold text-cyan-300 mb-2">
-              Pertanyaan {currentQuestionIndex + 1} dari {quizQuestions.length}
+            <p className="font-semibold text-brand-primary mb-2">
+              Pertanyaan {currentQuestionIndex + 1}/{quizQuestions.length}
             </p>
-            <h2 className="text-2xl font-bold text-white mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-brand-text mb-8">
               {quizQuestions[currentQuestionIndex].question}
             </h2>
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-4">
               {quizQuestions[currentQuestionIndex].options.map((option, index) => (
                 <button
                   key={index}
@@ -88,5 +81,4 @@ function QuizPage({ onQuizComplete }) {
     </div>
   );
 }
-
 export default QuizPage;
