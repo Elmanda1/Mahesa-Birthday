@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
 
 import Navbar from '../components/Navbar';
-import Welcome from '../components/Welcome'; // Import baru
+import Welcome from '../components/Home'; // Import baru
 import Timeline from '../components/Timeline';
 import PhotoGallery from '../components/PhotoGallery';
 import About from '../components/About';

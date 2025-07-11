@@ -1,35 +1,88 @@
 // src/App.jsx
 import React, { useState } from 'react';
-import HomePage from './pages/HomePage';
+import Home from './components/Home'; // Sesuaikan dengan struktur folder Anda
 import QuizPage from './pages/QuizPage';
-import GalleryPage from './pages/GalleryPage'; // Import halaman baru
+import GalleryPage from './pages/GalleryPage';
+import TimelinePage from './components/Timeline'; // Buat page baru jika perlu
+import AboutPage from './components/About'; // Buat page baru jika perlu
 import './index.css';
 
 function App() {
-  // Kita ganti state boolean menjadi string untuk mengelola 3 kondisi
-  // 'home' -> 'quiz' -> 'gallery'
-  const [pageState, setPageState] = useState('home');
+  // State untuk mengelola halaman yang aktif
+  const [currentPage, setCurrentPage] = useState('home');
 
-  // Fungsi untuk pindah dari 'home' ke 'quiz'
+  // Fungsi navigasi untuk setiap halaman
   const handleStartQuiz = () => {
-    setPageState('quiz');
+    setCurrentPage('quiz');
   };
 
-  // Fungsi untuk pindah dari 'quiz' ke 'gallery'
+  const handleNavigateToGallery = () => {
+    setCurrentPage('gallery');
+  };
+
+  const handleNavigateToTimeline = () => {
+    setCurrentPage('timeline');
+  };
+
+  const handleNavigateToAbout = () => {
+    setCurrentPage('about');
+  };
+
+  // Fungsi untuk kembali ke home
+  const handleBackToHome = () => {
+    setCurrentPage('home');
+  };
+
+  // Fungsi untuk menyelesaikan quiz dan lanjut ke gallery
   const handleQuizComplete = () => {
-    setPageState('gallery');
+    setCurrentPage('gallery');
   };
 
-  // Fungsi untuk merender halaman yang benar berdasarkan state
+  // Fungsi untuk merender halaman yang sesuai
   const renderPage = () => {
-    if (pageState === 'quiz') {
-      return <QuizPage onQuizComplete={handleQuizComplete} />;
+    switch(currentPage) {
+      case 'quiz':
+        return (
+          <QuizPage 
+            onQuizComplete={handleQuizComplete}
+            onBackToHome={handleBackToHome}
+          />
+        );
+      
+      case 'gallery':
+        return (
+          <GalleryPage 
+            onBackToHome={handleBackToHome}
+            onStartQuiz={handleStartQuiz}
+          />
+        );
+      
+      case 'timeline':
+        return (
+          <TimelinePage 
+            onBackToHome={handleBackToHome}
+            onNavigateToGallery={handleNavigateToGallery}
+          />
+        );
+      
+      case 'about':
+        return (
+          <AboutPage 
+            onBackToHome={handleBackToHome}
+            onStartQuiz={handleStartQuiz}
+          />
+        );
+      
+      default: // 'home'
+        return (
+          <Home 
+            onStartQuiz={handleStartQuiz}
+            onNavigateToGallery={handleNavigateToGallery}
+            onNavigateToTimeline={handleNavigateToTimeline}
+            onNavigateToAbout={handleNavigateToAbout}
+          />
+        );
     }
-    if (pageState === 'gallery') {
-      return <GalleryPage />;
-    }
-    // Defaultnya adalah 'home'
-    return <HomePage onStartQuiz={handleStartQuiz} />;
   };
 
   return (

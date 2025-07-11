@@ -9,7 +9,7 @@ function Navbar({ activeView, onNavigate }) {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'timeline', label: 'Timeline' },
-    { id: 'gallery', label: 'Galeri Foto' }
+    { id: 'gallery', label: 'Galeri Foto' },
   ];
 
   // Detect scroll to add extra blur effect
